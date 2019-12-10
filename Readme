@@ -1,0 +1,63 @@
+As a developer we have already created a node enviromnet on our machine and added n numbers of react app on it
+
+Prerequisite : 
+node js installed on your machine
+react default running app in a folder on localhost (i.e http://localhost:3000/)
+
+
+STEP 1
+go to xampp->xampp-control panel click config for Apache
+open Apache(httpd.config)
+uncomment these line 
+LoadModule proxy_http_module modules/mod_proxy_http.so
+save the file
+
+restart Apache xampp
+
+
+STEP 2
+need to set vhost and host in your system
+edit httpd-vhosts.conf inside apache\conf\extra
+
+added to your file after directory tag closed
+
+	ProxyRequests on
+	ProxyPass / http://localhost:5000/
+  
+	file should look like somewhat this 
+
+<VirtualHost *>
+	DocumentRoot "D:\xampp\htdocs\foldername"
+	ServerName ca.doaminname.net
+	<Directory "D:\xampp\htdocs\foldername">
+	Order allow,deny
+	Allow from all
+	</Directory>
+	ProxyRequests on
+	ProxyPass /blog2/ http://localhost:3000/
+</VirtualHost>
+
+
+STEP 3 
+
+edit your project package.json add "homepage" under name or on the top of name
+
+  "homepage":"http://ca.doaminname.net/",
+  
+  
+STEP 4
+
+Run your react project with 
+$ npm run build  
+will help you to create a project build inside your folder
+copy the files of build direcoty to your root directory (i.e main folder)
+
+npm install -g serve
+serve -s build
+
+FOR MORE DETAIL REGARDING DEPLOYMENT
+
+localhost will run on a domain http://ca.doaminname.net/
+rather than an port
+
+https://create-react-app.dev/docs/deployment/
